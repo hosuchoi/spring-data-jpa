@@ -1,4 +1,4 @@
-package lake.pool.springdatajpa.sampleRepository;
+package lake.pool.springdatajpa.samplerepository;
 
 import lake.pool.springdatajpa.common.entity.Account;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest // slice test : Repository layer 영역의 bean들만 만들어 줌 ( 빠르게 Repository test 가능 ) << Junit 테스트에서는 인메모리 설정되어 있으면 인메모리 사용함
+@DataJpaTest // slice test : Data access layer(Repository layer) 영역의 bean들만 만들어 줌 ( 빠르게 Repository test 가능 ) << Junit 테스트에서는 인메모리 설정되어 있으면 인메모리 사용함
 @Slf4j
 public class SampleJpaRepositoryTest {
 
@@ -33,13 +33,12 @@ public class SampleJpaRepositoryTest {
     }
 
     /*
-     @Rollback(false) 처리한 이유.
-     @DataJpaTest 안에 @Transactional 이 포함되어 있으므로 Rollback 됨
-     hibernate에서 실제 저장 안할 action에 대해서는 처리 안함( 그래서 아래 insert문 안날림 )
-            -> @Rollback(false) 처리해주면 insert문 처리됨
+     @Rollback(false) 처리한 이유
+     @DataJpaTest 안에 @Transactional포함되어 있으므로 특성상 test인걸 인지하고 Rollback 처리 함
+     hibernate에서 Test인줄 알고 실제 저장 action에 대해서는 처리 안함( 그래서 아래 insert문 안날림 )
      */
     @Test
-    @Rollback(false)
+    @Rollback(false) // @Rollback(false) 처리해주면 insert문 처리됨
     public void save(){
         // GIVEN
         Account account = new Account();

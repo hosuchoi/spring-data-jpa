@@ -1,4 +1,4 @@
-package lake.pool.springdatajpa.makeQeury;
+package lake.pool.springdatajpa.makequery;
 
 import lake.pool.springdatajpa.common.entity.Account;
 import org.springframework.data.domain.Page;

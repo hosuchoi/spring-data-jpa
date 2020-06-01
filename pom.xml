@@ -29,6 +29,7 @@
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--	postgre driver 설정--> <!-- jdbc는 java 안에 자동으로 들어있음-->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>

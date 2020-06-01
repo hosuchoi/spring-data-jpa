@@ -1,0 +1,39 @@
+$ docker ps
+사용중인 컨테이너 조회
+
+$ docker run -p 5432:5432 -e POSTGRES_PASSWORD=pass -e POSTGRES_USER=lake -e POSTGRES_DB=springdata --name postgres_boot -d postgres
+도커 컨테이너 생성
+#상세 설명
+5432:5432 : local port와 postgre의 port를 맵핑
+-e : 환경변수
+--name : 컨테이너 이름
+-d : 데몬모드로 띄우겟다 (백그라운드로 띄움)
+postgres : 이미지의 이름 << 맨마지막에 있는 문구
+
+$ docker rm postgres_boot
+도커 컨테이너 삭제
+
+$ clear
+consol 클리어
+
+$ docker exec -i -t postgres_boot bash
+컨테이너 안으로 들어옴
+#상세설명
+-i : 인터렉티브모드
+-t : 타겟이되는 컨테이너에 명령을 실행할건지
+bash : 사용하는 명령어는 bash(접속)
+
+--여기서 부터는 posgtre 문법
+$ su - postgres
+postgres 유저로 변경
+
+$ psql springboot
+데이터베이스에 접속 ( springboot라는 데이터베이스로 접속 )
+
+$ \list
+데이터베이스 조회
+
+$ \dt
+테이블 조회
+
+

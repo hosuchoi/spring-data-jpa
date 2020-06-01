@@ -1,4 +1,4 @@
-package lake.pool.springdatajpa.customRepository;
+package lake.pool.springdatajpa.customrepository;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.repository.NoRepositoryBean;
