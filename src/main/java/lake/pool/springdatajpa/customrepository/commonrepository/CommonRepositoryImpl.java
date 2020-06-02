@@ -7,6 +7,7 @@ import org.springframework.data.repository.core.EntityInformation;
 import javax.persistence.EntityManager;
 import java.io.Serializable;
 
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class CommonRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements CommonRepository<T, ID> {
 
     private EntityManager entityManager;

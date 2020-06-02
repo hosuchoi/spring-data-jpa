@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class QueryDslRepositoryTest {
+public class QueryDslCommonRepositoryTest {
 
     @Autowired
     QueryDslRepository queryDslRepository;
@@ -32,7 +32,6 @@ public class QueryDslRepositoryTest {
         QAccount account = QAccount.account;
         Predicate predicate = account
                 .firstName.containsIgnoreCase("ak")
-                .and(account.lastName.startsWith("ch"))
                 .and(account.lastName.startsWith("ch"));
 
         Optional<Account> one = queryDslRepository.findOne(predicate);
