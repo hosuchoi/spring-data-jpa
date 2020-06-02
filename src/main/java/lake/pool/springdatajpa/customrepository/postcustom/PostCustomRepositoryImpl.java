@@ -17,7 +17,7 @@ public class PostCustomRepositoryImpl<T> implements PostCustomRepository<T>{  //
 
     @Autowired
     EntityManager entityManager;
-    
+
     @Autowired
     JdbcTemplate jdbcTemplate; // jdbc template도 사용 가능
 

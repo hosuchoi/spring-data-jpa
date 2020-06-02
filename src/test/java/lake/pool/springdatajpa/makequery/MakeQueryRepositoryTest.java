@@ -68,7 +68,7 @@ public class MakeQueryRepositoryTest {
         assertThat(lakeAscPage.getTotalElements()).isEqualTo(3);
         assertThat(lakeAscPage.getNumberOfElements()).isEqualTo(2);
         assertThat(lakeAscPage).first().hasFieldOrPropertyWithValue("age", 30);
-        
+
         // When
         try(Stream<Account> lakeStream = makeQueryRepository.findByUsernameContainsIgnoreCase("lakE", agePage)){
             Account account = lakeStream.findFirst().get();
