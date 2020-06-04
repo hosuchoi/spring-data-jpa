@@ -1,6 +1,8 @@
 package lake.pool.springdatajpa.samplerepository;
 
+import javassist.runtime.Desc;
 import lake.pool.springdatajpa.common.entity.Account;
+import lake.pool.springdatajpa.common.entity.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -90,5 +94,24 @@ public class SampleJpaRepositoryTest {
 
         // Then
         assertThat(count).isEqualTo(1);
+    }
+
+    @Test
+    public void jpqlTest(){
+        createUSer();
+
+//        List<Account> byUsernameJpqlQuery = sampleJpaRepository.findByUsernameJpqlQuery("lake%", Sort.by(Sort.Direction.DESC, "username"));  // property or as 만 가능
+        List<Account> byUsernameJpqlQuery = sampleJpaRepository.findByUsernameJpqlQuery("lake%", JpaSort.unsafe(Sort.Direction.DESC, "LENGTH(username)")); //함수를 이용한 경우
+        assertThat(byUsernameJpqlQuery.size()).isEqualTo(10);
+    }
+
+    public void createUSer() {
+        int pageSize = 10;
+        while(pageSize > 0){
+            Account account = new Account();
+            account.setUsername("lake"+pageSize);
+            sampleJpaRepository.save(account);
+            pageSize--;
+        }
     }
 }

@@ -9,35 +9,46 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-//@ActiveProfiles("test") // test/reasources/application-test.properties 바라봄
-public class DomainControllerTest {
+public class HateoasControllerTest {
+
+    @Autowired
+    private WebRepository webRepository;
 
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
-    WebRepository webRepository;
-
     @Test
-    public void getPost() throws Exception{
-        Post post = Post.builder()
-                .title("lake")
-                .build();
+    public void hateoasTest() throws Exception{
+        postCreate();
 
-        webRepository.save(post);
-
-        mockMvc.perform(get("/posts/" + post.getId()))
+        mockMvc.perform(get("/hateoas")
+                    .param("page", "5")
+                    .param("size", "10")
+                    .param("sort", "created,desc")
+                    .param("sort", "id"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("lake"));
+                .andExpect(mvcResult -> {
+                    jsonPath("$.content[0].title", is("lake"));
+                });
+    }
 
+    public void postCreate() {
+        int postSize = 100;
+        while(postSize > 0){
+            Post post = new Post();
+            post.setTitle("lake");
+            webRepository.save(post);
+            postSize--;
+        }
     }
 }
