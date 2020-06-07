@@ -22,7 +22,7 @@ public class Post {
     private String title; //default varchar(255)
 
     @Lob // 255자가 넘을 경우
-    private String comment;
+    private String contents;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;

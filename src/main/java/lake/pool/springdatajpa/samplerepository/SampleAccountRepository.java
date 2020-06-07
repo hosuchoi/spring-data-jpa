@@ -6,13 +6,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.lang.NonNull;
 
 import java.util.List;
 
-public interface SampleJpaRepository extends JpaRepository<Account, Long> {
+public interface SampleAccountRepository extends JpaRepository<Account, Long> {
 
     Page<Account> findByUsernameContains(String username, Pageable pageable);
 
@@ -36,4 +37,9 @@ public interface SampleJpaRepository extends JpaRepository<Account, Long> {
     //SePL : 여기서는 entity명을 받아와서 처리가능 -> entity 명을 바꿧을 경우 일괄적용됨
     @Query("SELECT p FROM #{#entityName} AS p WHERE p.username like :username")
     List<Account> findByUsernameJpqlQuery(@Param("username") String value, Sort sort);
+
+    //updte
+    @Modifying(clearAutomatically = true)  // 업데이트를 하겠다! 이전 모든 캐시를 초기화 하겠다. persist 상태의 객체를 없애줌.
+    @Query("UPDATE Account p SET p.username = ?1 WHERE p.id = ?2")
+    int updateUsername(String username, Long id);
 }
