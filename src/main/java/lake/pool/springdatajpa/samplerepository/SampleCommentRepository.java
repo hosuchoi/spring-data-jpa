@@ -27,8 +27,7 @@ public interface SampleCommentRepository extends JpaRepository<Comment, Long> {
 //    List<CommentSummaryC> findByPost_Id(Long id); // 클래스 방식
     // 위 2개 방식 다 커버 가능
     // CommentSummary, CommentSummaryC, CommentSummaryOnly 등 클래스 타입 따라 여러개의 리턴 처리 가능
-    <T> List<T>
-    ndByPost_Id(Long id, Class<T> classType);
+    <T> List<T> findByPost_Id(Long id, Class<T> classType);
 
     List<CommentSummary> findByComment(String comment);
 }

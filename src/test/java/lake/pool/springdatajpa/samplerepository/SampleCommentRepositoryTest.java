@@ -7,13 +7,12 @@ import lake.pool.springdatajpa.common.entity.Post;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Optional;
-
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@SpringBootTest
 public class SampleCommentRepositoryTest {
 
     @Autowired
@@ -23,6 +22,7 @@ public class SampleCommentRepositoryTest {
     SamplePostRepository samplePostRepository;
 
     @Test
+    @Rollback(false)
     public void entityGraghTest(){
         /*
         EntityGragh는 repository의 특정 메서드에 대해서 연관관계에 있는 객체를 함께 조회 하게 해준다.
@@ -79,5 +79,20 @@ public class SampleCommentRepositoryTest {
             System.out.println("==============");
             System.out.println(c.getComment());
         });
+    }
+
+    @Test
+    public void auditingTest(){
+        Post post = new Post();
+        post.setTitle("jpa");
+        Post savedPost = samplePostRepository.save(post);
+
+        Comment comment = new Comment();
+        comment.setComment("jpa");
+        comment.setUp(10);
+        comment.setDown(1);
+        comment.setPost(savedPost);
+        Comment savedComment = sampleCommentRepository.save(comment);
+        sampleCommentRepository.findById(savedComment.getId());
     }
 }

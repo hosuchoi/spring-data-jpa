@@ -67,6 +67,17 @@
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
 
+		<!-- Specifications : Query DSL과 비슷하게 타입세이프한 쿼리 제공 -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -92,6 +103,34 @@
 				</executions>
 			</plugin>
 		</plugins>
+<!--		Specifications 패키징 할때 maven 플러그인 설정 -->
+<!--		<plugin>-->
+<!--			<groupId>org.bsc.maven</groupId>-->
+<!--			<artifactId>maven-processor-plugin</artifactId>-->
+<!--			<version>2.0.5</version>-->
+<!--			<executions>-->
+<!--				<execution>-->
+<!--					<id>process</id>-->
+<!--					<goals>-->
+<!--						<goal>process</goal>-->
+<!--					</goals>-->
+<!--					<phase>generate-sources</phase>-->
+<!--					<configuration>-->
+<!--						<processors>-->
+
+<!--							<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>-->
+<!--						</processors>-->
+<!--					</configuration>-->
+<!--				</execution>-->
+<!--			</executions>-->
+<!--			<dependencies>-->
+<!--				<dependency>-->
+<!--					<groupId>org.hibernate</groupId>-->
+<!--					<artifactId>hibernate-jpamodelgen</artifactId>-->
+<!--					<version>${hibernate.version}</version>-->
+<!--				</dependency>-->
+<!--			</dependencies>-->
+<!--		</plugin>-->
 	</build>
 
 </project>

@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,4 +34,15 @@ public class Account {
         arrAccount.add(this);
         return arrAccount;
     }
+
+    //Enumeration 매핑방법
+    @Enumerated(value = EnumType.STRING) // EnumType.ORDINAL 비추 0,1,2 값으로 들어감
+    private CommentStatus commentStatus;
+
+    //Embeded
+    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name = "street", column = @Column(name ="home_street"))
+//    })
+    private Address address;
 }
